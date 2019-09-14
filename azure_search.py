@@ -7,57 +7,44 @@ headers = {
 }
 api_version = '?api-version=2019-05-06'
 
-index_schema = {
-'name': 'htn-bitplease',
-'fields': [
-{'name': 'youtube_link', 'type': 'Edm.String', 'key': 'true', 'retrievable': 'true'},
-{'name': 'description', 'type': 'Edm.String', 'retrievable': 'true', 'searchable': 'true'},
-{'name': 'youtube_thumbnail_link', 'type': 'Edm.String', 'retrievable': 'true'},
-{'name': 'title', 'type': 'Edm.String', 'searchable': 'true', 'retrievable': true},
-{'name': 'duration', 'type': 'Edm.Int64', 'retrievable': 'true'},
-{'name': 'frame_features', 'type': 'Edm.ComplexType', 'fields': [
-{'name': 'adult', 'type': 'Edm.ComplexType', 'fields': [
-{'name': 'adultScore', 'type': 'Edm.Double', 'retrievable': 'true', 'searchable': 'true', 'filterable': 'true'},
-{'name': 'isAdultContent', 'type': 'Edm.Boolean', 'facetable': 'true', 'filterable': 'true'},
-{'name': 'isRacyContent', 'type': 'Edm.Boolean', 'facetable': 'true', 'filterable': 'true'},
-{'name': 'racyScore', 'type': 'Edm.Double', 'retrievable': 'true', 'searchable': 'true', 'filterable': 'true'}
-]},
-{'name': 'categories', 'type': 'Collection(Edm.ComplexType)', 'fields': [
-{'name': 'name', 'type': 'Edm.String', 'searchable': 'true', 'retrievable': 'true'},
-{'name': 'score', 'type': 'Edm.Double', 'retrievable': 'true', 'searchable': 'true', 'filterable': 'true'}
-]},
-{'name': 'description', 'type': 'Edm.ComplexType', 'fields': [
-{'name': 'captions', 'type': 'Collecton(Edm.ComplexType)', 'fields': [
-{'name': 'coonfidence', 'type': 'Edm.Double', 'retrievable': 'true', 'searchable': 'true', 'filterable': 'true'},
-{'name': 'text', 'type': 'Edm.String', 'searchable': 'true', 'retrievable': 'true'}
-]},
-{'name': 'tags', 'type': 'Collection(Edm.String)', 'searchable': 'true', 'retrievable': 'true', 'sortable': 'true'}
-]},
-{'name': 'tags', 'type': 'Collection(Edm.ComplexType)', 'fields': [
-{'name': 'confidence', 'type': 'Edm.Double', 'retrievable': 'true', 'searchable': 'true', 'filterable': 'true'},
-{'name': 'name', 'type': 'Edm.String', 'searchable': 'true'}
-]}
-]}
-]
-}
-
 def create_index(index_schema):
-    url = azure_search_endpoint + 'indexes' + api_version
-    response = requests.post(url, headers=headers, json=index_schema)
-    index = response.json()
-    print(index)
+    if not index_exists(index_schema['name']):    
+        url = azure_search_endpoint + 'indexes' + api_version
+        response = requests.post(url, headers=headers, json=index_schema)
+        index = response.json()
+        print(index)
+    else:
+        print('Index already exists')
+        delete_index(index_schema['name'])
+        create_index(index_schema)
+        
+def index_exists(index_name):
+    url = azure_search_endpoint + 'indexes' + api_version + '&$select=name'
+    response  = requests.get(url, headers=headers)
+    index_list = response.json()
+    for index in index_list.get('value'):
+        if index.get('name') == index_name:
+            return True
+    return False
     
 def insert(index_name, data):
-    url = endpoint + 'indexes/' + index_name + '/docs/index' + api_version
+    url = azure_search_endpoint + 'indexes/' + index_name + '/docs/index' + api_version
     payload = {
     'value': data
     }
-    response = requests.post(url, eaders=header, json=payload)
+    if data[0]['title'] == '5 Minutes on Tech: Everything You Need to Know about USB-C and Thunderbolt 3':
+        print(payload)
+    response = requests.post(url, headers=headers, json=payload)
     index_content = response.json()
     print(index_content)
     
+def delete_index(index_name):
+    url = azure_search_endpoint + 'indexes/' + index_name + api_version
+    response = requests.delete(url, headers=headers)
+    print(response)
+    
 def search(index_name, search_query):
-    url = endpoint + 'indexes/' + index_name + '/docs' + api_version + search_query
+    url = azure_search_endpoint + 'indexes/' + index_name + '/docs' + api_version + search_query
     response = requests.get(url, headers=headers, json=search_query)
     query_result = response.json()
     print(query_result)
