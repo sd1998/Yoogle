@@ -1,21 +1,28 @@
-from video_indexer import VideoIndexer
-import time
+import http.client
+import urllib.request
+import urllib.parse
+import urllib.error
+import base64
 
-def extract_video_features(video_file_path):
-    vi = VideoIndexer(
-        vi_subscription_key='a2584f5eacf04e099da8e56d771f755b',
-        vi_account_id='378fbaf6-660a-4aaf-90fb-1da9bde746ee',
-        vi_location='trial'
-    )
-    video_id = vi.upload_to_video_indexer(
-       input_filename=video_file_path,
-       video_name=video_file_path,
-       video_language='English'
-    )
-    time.sleep(600)
-    metadata = vi.get_video_info(
-        video_id,
-        video_language='English'
-    )
-    features = vi.extract_summary_from_video_indexer_info(metadata)
-    return features
+def extract_frame_features(frame_file_name):
+    headers = {
+        'Content-Type': 'application/octet-stream',
+        'Ocp-Apim-Subscription-Key': '592f656df9a242e69bb91c3a8406338d',
+    }
+
+    params = urllib.parse.urlencode({
+        'visualFeatures': 'Categories,Tags,Description,Faces,ImageType,Color,Adult',
+        'details': 'Celebrities,Landmarks',
+        'language': 'en',
+    })
+
+    try:
+        conn = http.client.HTTPSConnection('htn-bitplease.cognitiveservices.azure.com')
+        conn.request("POST", "/vision/v1.0/analyze?%s" % params, open(frame_file_name, 'rb'), headers)
+        response = conn.getresponse()
+        data = response.read()
+        print(data)
+        conn.close()
+        return data
+    except Exception as e:
+        raise RuntimeError(e)
