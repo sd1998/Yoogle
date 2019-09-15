@@ -1,14 +1,14 @@
 from flask import Flask, render_template, jsonify, redirect, request
-from inverted_index import InvertedIndex 
+from inverted_index import InvertedIndex
 
 app = Flask(__name__)
-index3 = inverted_index.read_index_file('inverted_index.json')
-print(index3)
+inverted_index = InvertedIndex()
+
 @app.route("/Search", methods=['GET','POST'])
 def index():
     search = str(request.args['search'])
     print(search)
-    query = inverted_index.search(index3,search)
+    query = inverted_index.search(search)
     print(query)
     return render_template("index.html")
 
