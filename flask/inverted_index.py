@@ -56,9 +56,8 @@ class InvertedIndex:
                 self.inverted_index[tokens[i]] = [data]
             else:
                 self.inverted_index[tokens[i]].append(data)
-
+                          
     def listener(self, event):
-        print(event)
         value = event.data
         for key in list(value.keys()):
             for i in range(0, len(value[key]['frame_features'])):
@@ -73,25 +72,32 @@ class InvertedIndex:
                         self.add_to_inverted_index([tag['name']], {
                         'confidence': tag['confidence'],
                         'video': key,
-                        'frame_no': i + 1
+                        'frame_no': i + 1,
+                        'thumbnail_link': value[key]['youtube_thumbnail_link'],
+                        'youtube_link': value[key]['youtube_link'],
+                        'title': value[key]['title']
                         })
         self.save(self.inverted_index, 'inverted_index.json')
-        print(self.inverted_index)
 
     def search(self, word):
         if word in self.inverted_index:
             result = {}
             for doc in self.inverted_index[word]:
                 if doc['video'] in result:
-                    result[doc['video']].append({
+                    result[doc['video']]['frames'].append({
                     'confidence': doc['confidence'],
                     'frame_no': doc['frame_no']
                     })
                 else:
-                    result[doc['video']] = [{
+                    result[doc['video']] = {
+                    'thumbnail_link': doc['thumbnail_link'],
+                    'youtube_link': doc['youtube_link'],
+                    'title': doc['title'],
+                    'frames': [{
                     'confidence': doc['confidence'],
                     'frame_no': doc['frame_no']
                     }]
+                    }
             return result
         return None
 
