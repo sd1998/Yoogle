@@ -27,12 +27,13 @@ def index():
     video_titles= []
     video_thumbnails = []
     video_links = []
+    tags = []
     for item in query:
         pervideoframe = []
         video_titles.append(query[item]['title'])
         video_thumbnails.append(query[item]['thumbnail_link'])
         video_links.append(query[item]['youtube_link'][:-1])
-
+        tags.append(video_tags[item])
         for frames in query[item]['frames']:
             pervideoframe.append(frames['frame_no'])
         total_frames.append(pervideoframe)
