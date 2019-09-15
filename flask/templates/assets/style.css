@@ -1,0 +1,165 @@
+/*default*/
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.text-small {
+    font-size: 12px;
+}
+
+.sub-heading {
+    line-height: 16px;
+    color: white;
+}
+
+div {
+    display: inline-block;
+}
+
+/*default ends*/
+
+/*navbar*/
+
+
+.bar-container {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.main-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.bar-container:hover {
+    background-color: #f1f1f1;
+}
+
+.form-control {
+    width: 45vw !important;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.navbar {
+    padding: 7px;
+    color: #797979;
+}
+
+.navbar .me {
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.bar {
+    margin-left: 30px;
+}
+
+.fa-search {
+    padding: 0 10px;
+}
+
+.share-container {
+    height: 400px;
+    width: 300px;
+}
+
+.remove-outline:focus {
+    box-shadow: none;
+}
+
+nav {
+    box-shadow: 1px 1px 5px #dddddd;
+}
+
+/*navbar ends*/
+
+/*main container */
+
+.video-card {
+    width: 100%;
+/*    width: 24.2%;*/
+
+}
+.video-card-play {
+    width: 100%;
+/*    width: 24.2%;*/
+
+}
+
+.video-card img {
+    width: 100%;
+}
+
+.width-container {
+    width: 95%;
+/*    width: 70%;*/
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.side-bar{
+    width: 21%;
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #f5f5f5;
+    z-index: 555;
+    display: none;
+    padding-top: 65px;
+}
+.side-bar:hover{
+    overflow-y: scroll;
+}
+
+.hidden{
+
+/*    display: none;*/
+}
+/*main container endss*/
+
+nav{
+    z-index: 9999;
+}
+.option:hover{
+    background-color: #dedede;
+    cursor: pointer;
+}
+.option i{
+    padding-left: 10px;
+    padding-right: 5px;
+}
+.hot{
+    color: #ff0000;
+}
+.dropdown-menu a i{
+    color: #ff0000;
+    padding-right: 5px;
+    width: 30px;
+}
+.bg-dark{
+    background-color: #232323 !important;
+}
+.yt-title{
+    margin-top: 3%;
+}
+
+
+
+
+
