@@ -19,7 +19,7 @@ firebase = firebase_admin.initialize_app(firebase_credentials, {
 stopwords = set(stopwords.words('english'))
 
 inverted_index = {}
-    
+
 bi_word_inverted_index = {}
 
 def remove_stopwords(tokens):
@@ -28,7 +28,7 @@ def remove_stopwords(tokens):
         if tokens[i].lower() not in stopwords:
             tokens_wo_stopwords.append(tokens[i].lower())
     return tokens_wo_stopwords
-    
+
 def get_pos_tag(token):
     pos_tag = nltk.pos_tag([token])[0][1]
     if pos_tag.startswith('N'):
@@ -41,20 +41,20 @@ def get_pos_tag(token):
         return wordnet.ADV
     else:
         return wordnet.NOUN
-        
+
 def lemmatize(tokens):
     lemmatizer = WordNetLemmatizer()
     for i in range(0,len(tokens)):
         tokens[i] = lemmatizer.lemmatize(tokens[i],pos=str(get_pos_tag(tokens[i])))
     return tokens
-    
+
 def add_to_inverted_index(tokens,data):
     for i in range(0,len(tokens)):
         if tokens[i] not in inverted_index:
-            inverted_index[tokens[i]] = [data] 
+            inverted_index[tokens[i]] = [data]
         else:
             inverted_index[tokens[i]].append(data)
-                
+
 def listener(event):
     value = event.data
     for key in list(value.keys()):
@@ -74,7 +74,8 @@ def listener(event):
                     })
     save(inverted_index, 'inverted_index.json')
 
-def search(word):
+def search(inverted_index, word):
+    print(inverted_index)
     if word in inverted_index:
         result = {}
         for doc in inverted_index[word]:
@@ -82,24 +83,25 @@ def search(word):
                 result[doc['video']].append({
                 'confidence': doc['confidence'],
                 'frame_no': doc['frame_no']
-                })  
+                })
             else:
                 result[doc['video']] = [{
                 'confidence': doc['confidence'],
                 'frame_no': doc['frame_no']
-                }]    
+                }]
         return result
     return None
-    
+
 def save(inverted_index,filename):
     with open(filename, 'w') as file:
         json.dump(inverted_index, file)
-        
+
 def read_index_file(index_file_name):
-    with open(index_file_name,'r') as file:
+    with open('./'+index_file_name,'r') as file:
         inverted_index = json.load(file)
-        
-if os.path.exists('inverted_index.json'): 
-    read_index_file('inverted_index.json')            
+
+if os.path.exists('inverted_index.json'):
+    print('here')
+    read_index_file('inverted_index.json')
 else:
     db.reference('/').listen(listener)
