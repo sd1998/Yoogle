@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, redirect, request
-import inverted_index
+from inverted_index import InvertedIndex 
 
 app = Flask(__name__)
 index3 = inverted_index.read_index_file('inverted_index.json')
