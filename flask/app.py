@@ -3,12 +3,13 @@ import inverted_index
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
+@app.route("/Search", methods=['GET','POST'])
 def index():
-    
+    search = request.form.get('search')
+    print(search)
     return render_template("index.html") 
 
-@app.route('/get-user-data', methods=['POST'])
+@app.route('/')
 def show_stuff():
     #setup elastic search
     #setup schema for ES
@@ -21,4 +22,4 @@ def show_stuff():
 
 
 if __name__ == "__main__":
-    app.run(port=6666)
+    app.run(debug=True,port = 6666)
