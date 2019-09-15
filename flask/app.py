@@ -1,9 +1,20 @@
 from flask import Flask, render_template, jsonify, redirect, request
 from inverted_index import InvertedIndex
 
+def get_tags_for_videos(inverted_index):
+    video_tags = {}
+    for tag in inverted_index:
+        for doc in inverted_index[tag]:
+            if doc['video'] not in video_tags:
+                video_tags[doc['video']] = [tag]
+            elif tag not in video_tags[doc['video']]:
+                video_tags[doc['video']].append(tag)
+    return video_tags
+    
 app = Flask(__name__)
 inverted_index = InvertedIndex()
-
+video_tags = get_tags_for_videos(inverted_index.inverted_index)
+ 
 @app.route("/Search", methods=['GET','POST'])
 def index():
     search = str(request.args['search'])
