@@ -1,0 +1,84 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+</head>
+<body>
+  <ol id="results"></ol>
+</body>
+<script>
+    $(document).ready(function() {
+  $.get(
+    "https://www.googleapis.com/youtube/v3/search",{
+      part : 'snippet', 
+      channelId : 'UCi7GJNg51C3jgmYTUwqoUXA', // You can get one from Advanced settings on YouTube
+      type : 'video',
+      key: 'AIzaSyC1fod5IjAx-Tj6wdVCXDQL6d4a7_vpq04'},
+      function(data) {
+        $.each( data.items, function( i, item ) {
+          $('#results').append('<li>https://www.youtube.com/embed/' + item.id.videoId + "," + '</li>');
+        })
+      }
+  );
+  $.get(
+    "https://www.googleapis.com/youtube/v3/search",{
+      part : 'snippet', 
+      channelId : 'UC8-Th83bH_thdKZDJCrn88g', // You can get one from Advanced settings on YouTube
+      type : 'video',
+      key: 'AIzaSyC1fod5IjAx-Tj6wdVCXDQL6d4a7_vpq04'},
+      function(data) {
+        $.each( data.items, function( i, item ) {
+          $('#results').append('<li>https://www.youtube.com/embed/' + item.id.videoId + "," + '</li>');
+        })
+      }
+  );
+  $.get(
+    "https://www.googleapis.com/youtube/v3/search",{
+      part : 'snippet', 
+      channelId : 'UCVTyTA7-g9nopHeHbeuvpRA', // You can get one from Advanced settings on YouTube
+      type : 'video',
+      key: 'AIzaSyC1fod5IjAx-Tj6wdVCXDQL6d4a7_vpq04'},
+      function(data) {
+        $.each( data.items, function( i, item ) {
+          $('#results').append('<li>https://www.youtube.com/embed/' + item.id.videoId + "," + '</li>');
+        })
+      }
+  );
+  $.get(
+    "https://www.googleapis.com/youtube/v3/search",{
+      part : 'snippet', 
+      channelId : 'UCJ0uqCI0Vqr2Rrt1HseGirg', // You can get one from Advanced settings on YouTube
+      type : 'video',
+      key: 'AIzaSyC1fod5IjAx-Tj6wdVCXDQL6d4a7_vpq04'},
+      function(data) {
+        $.each( data.items, function( i, item ) {
+          $('#results').append('<li>https://www.youtube.com/embed/' + item.id.videoId + "," + '</li>');
+        })
+      }
+  );
+  $.get(
+    "https://www.googleapis.com/youtube/v3/search",{
+      part : 'snippet', 
+      channelId : 'UC4PziMH5MvvsmqM0VCZTy-g', // You can get one from Advanced settings on YouTube
+      type : 'video',
+      key: 'AIzaSyC1fod5IjAx-Tj6wdVCXDQL6d4a7_vpq04'},
+      function(data) {
+        $.each( data.items, function( i, item ) {
+          $('#results').append('<li>https://www.youtube.com/embed/' + item.id.videoId + "," + '</li>');
+        })
+      }
+  );
+  $.get(
+    "https://www.googleapis.com/youtube/v3/search",{
+      part : 'snippet', 
+      channelId : 'UCqFzWxSCi39LnW1JKFR3efg', // You can get one from Advanced settings on YouTube
+      type : 'video',
+      key: 'AIzaSyC1fod5IjAx-Tj6wdVCXDQL6d4a7_vpq04'},
+      function(data) {
+        $.each( data.items, function( i, item ) {
+          $('#results').append('<li>https://www.youtube.com/embed/' + item.id.videoId + "," + '</li>');
+        })
+      }
+  );
+});
+</script>
+</html>
