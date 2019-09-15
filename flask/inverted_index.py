@@ -21,7 +21,7 @@ stopwords = set(stopwords.words('english'))
 inverted_index = {}
 
 if os.path.exists('inverted_index.pkl'):
-    read()
+    read('inverted_index.pkl')
     
 bi_word_inverted_index = {}
 
@@ -75,8 +75,7 @@ def listener(event):
                     'video': key,
                     'frame_no': i + 1
                     })
-    if not os.path.exists('inverted_index.pkl'):
-        save(inverted_index, 'inverted_index.pkl')
+    save(inverted_index, 'inverted_index.pkl')
 
 def search(word):
     if word in inverted_index:
@@ -99,8 +98,9 @@ def save(inverted_index,filename):
     with open(filename + '.pkl','wb') as index:
         pickle.dump(inverted_index,index,pickle.HIGHEST_PROTOCOL)
         
-def read():
-    with open("inverted_index.pkl",'rb') as file:
+def read(index_file_name):
+    with open(index_file_name,'rb') as file:
         inverted_index = pickle.load(file)    
-                
-db.reference('/').listen(listener)
+        
+if not os.path.exists('inverted_index.pkl'):                
+    db.reference('/').listen(listener)
