@@ -7,7 +7,7 @@ import base64
 def extract_frame_features(frame_file_name):
     headers = {
         'Content-Type': 'application/octet-stream',
-        'Ocp-Apim-Subscription-Key': '592f656df9a242e69bb91c3a8406338d',
+        'Ocp-Apim-Subscription-Key': '4f146499dabf4a65aafe6e056ccd4321',
     }
 
     params = urllib.parse.urlencode({
@@ -17,7 +17,7 @@ def extract_frame_features(frame_file_name):
     })
 
     try:
-        conn = http.client.HTTPSConnection('htn-bitplease.cognitiveservices.azure.com')
+        conn = http.client.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
         conn.request("POST", "/vision/v1.0/analyze?%s" % params, open(frame_file_name, 'rb'), headers)
         response = conn.getresponse()
         data = response.read()
