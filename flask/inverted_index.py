@@ -4,7 +4,7 @@ from nltk import word_tokenize
 from nltk.corpus import stopwords, wordnet
 from nltk.stem import WordNetLemmatizer
 import re
-import pickle
+import json
 import os
 import firebase_admin
 from firebase_admin import credentials
@@ -19,9 +19,6 @@ firebase = firebase_admin.initialize_app(firebase_credentials, {
 stopwords = set(stopwords.words('english'))
 
 inverted_index = {}
-
-if os.path.exists('inverted_index.pkl'):
-    read('inverted_index.pkl')
     
 bi_word_inverted_index = {}
 
@@ -75,7 +72,7 @@ def listener(event):
                     'video': key,
                     'frame_no': i + 1
                     })
-    save(inverted_index, 'inverted_index.pkl')
+    save(inverted_index, 'inverted_index.json')
 
 def search(word):
     if word in inverted_index:
@@ -95,12 +92,14 @@ def search(word):
     return None
     
 def save(inverted_index,filename):
-    with open(filename + '.pkl','wb') as index:
-        pickle.dump(inverted_index,index,pickle.HIGHEST_PROTOCOL)
+    with open(filename, 'w') as file:
+        json.dump(inverted_index, file)
         
-def read(index_file_name):
-    with open(index_file_name,'rb') as file:
-        inverted_index = pickle.load(file)    
+def read_index_file(index_file_name):
+    with open(index_file_name,'r') as file:
+        inverted_index = json.load(file)
         
-if not os.path.exists('inverted_index.pkl'):                
+if os.path.exists('inverted_index.json'): 
+    read_index_file('inverted_index.json')            
+else:
     db.reference('/').listen(listener)
