@@ -24,14 +24,14 @@
             <i class="fas fa-bars main-icon"></i>
         </div>
         <div class="logo mr-auto logo-light pl-2">
-        <img src="assets/img/Yoogle.png" alt="" height="50px;" class="">
+        <img src="./static/img/Yoogle.png" alt="" height="50px;" class="">
         </div>
         <div class="logo mr-auto logo-dark pl-2" style="display: none">
-            <img src="assets/img/Yoogle.png" alt="" height="50px;" class="logo-dark">
+            <img src="./static/img/Yoogle.png" alt="" height="50px;" class="logo-dark">
         </div>
-        <form class="form-inline mr-auto">
+        <form class="form-inline mr-auto" action='/Search'>
             <div class="input-group">
-                <input type="text" class="form-control remove-outline" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" name = 'search' class="form-control remove-outline" placeholder="Search" aria-label="Username" aria-describedby="basic-addon1">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><a href="list.html"><i class="fas fa-search"></i></a></span>
                 </div>
@@ -104,6 +104,7 @@
                 <i class="fas fa-id-card"></i> Subscription
             </div>
             <hr>
+            <!--
             <p class="text-small text-muted pl-3">LIBRARY</p>
             <div class="option p-2 d-block mt-2">
                 <i class="fas fa-history"></i> History
@@ -148,15 +149,14 @@
 Terms Privacy Policy and SafetyTest new features</p>
            <br>
            <p class="px-3 pb-2">&copy; 2019 Yoogle</p>
-
+ -->
         </div>
 
         <div class="width-container pb-5" style="padding-top: 3%;">
             <!--            Recommended starts here            -->
             <h6 class="py-3"><img src="" alt="" height="40px;" class="mr-2 rounded-circle"></h6>
             {% for i in video_titles %}
- {{ i }}
-            <a href="play.html">
+            <a href="/play?video={{video_links[loop.index0]}}">
                 <div class="video-card">
                 <div style="position: relative; width: 100%">
                     <!--<p class="text-white sub-text px-1" style="background-color: black; display: inline-block; font-size: 12px; position: absolute; bottom: 2px; right:2px">4:00</p>
@@ -166,10 +166,10 @@ Terms Privacy Policy and SafetyTest new features</p>
                     </div>
                 </div>
                 <p class="text-justify py-2 sub-heading">{{i}} </p>
+                <span class="text-muted text-small">Frame numbers - </p>
                 {% for frame in total_frames[loop.index0] %}
-                <p class="text-muted text-small">{{frame}}</p>
+                <span class="text-muted text-small" style="display: inline-block;">{{frame}}</span>
                 {% endfor %}
-                <p class="text-muted text-small">1.1B views * 1 year ago</p>
             </div></a>
             <br>
             <hr style="border: 0.5px solid #dddddd;">

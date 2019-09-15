@@ -40,7 +40,9 @@ def show_stuff():
 
 @app.route('/play')
 def show_stuff2():
-    return render_template("play.html")
+    link= str(request.args['video'])
+
+    return render_template("play.html",link=link)
 
 
 
