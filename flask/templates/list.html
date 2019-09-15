@@ -156,8 +156,8 @@ Terms Privacy Policy and SafetyTest new features</p>
             <!--            Recommended starts here            -->
             <h6 class="py-3"><img src="" alt="" height="40px;" class="mr-2 rounded-circle"></h6>
             {% for i in video_titles %}
-            <a href="/play?video={{video_links[loop.index0]}}">
-                <div class="video-card">
+            <a href="/play?video={{video_links[loop.index0]}}&tags={{tags}}&title={{i}}">
+                <div class="video-card" style="width: 400% !important;">
                 <div style="position: relative; width: 100%">
                     <!--<p class="text-white sub-text px-1" style="background-color: black; display: inline-block; font-size: 12px; position: absolute; bottom: 2px; right:2px">4:00</p>
                     <img src="assets/img/hqdefault(1).jpg" alt="">-->
@@ -165,11 +165,15 @@ Terms Privacy Policy and SafetyTest new features</p>
                             <iframe class="embed-responsive-item" src={{video_links[loop.index0]}} allowfullscreen></iframe>
                     </div>
                 </div>
-                <p class="text-justify py-2 sub-heading">{{i}} </p>
-                <span class="text-muted text-small">Frame numbers - </p>
-                {% for frame in total_frames[loop.index0] %}
-                <span class="text-muted text-small" style="display: inline-block;">{{frame}}</span>
-                {% endfor %}
+            </div>
+            <div class="row">
+              <p class="text-justify py-2 sub-heading">{{i}} </p><br>
+            </div>
+            <div class="row">
+              <span class="text-muted text-small">Frame numbers - time occurence</p>
+              {% for frame in total_frames[loop.index0] %}
+              <button type="button" class="btn btn-outline-light" >{{frame}} - time : {{frame*3}} seconds</button>
+              {% endfor %}
             </div></a>
             <br>
             <hr style="border: 0.5px solid #dddddd;">
@@ -205,24 +209,6 @@ Terms Privacy Policy and SafetyTest new features</p>
                 <p class="text-muted text-small">1.1B views * 1 year ago</p>
             </div></a>
             {% endfor %}
-
-            <a href="play.html">
-                <div class="video-card">
-                <div style="position: relative; width: 100%">
-                    <!--<p class="text-white sub-text px-1" style="background-color: black; display: inline-block; font-size: 12px; position: absolute; bottom: 2px; right:2px">4:00</p>
-                    <img src="assets/img/hqdefault(1).jpg" alt="">-->
-                    <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/-Wwe5OW_jPE" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <p class="text-justify py-2 sub-heading">Mac vs Windows for Software Engineers </p>
-                <p class="text-muted text-small">Flora Sutton</p>
-                <p class="text-muted text-small">1.1B views * 1 year ago</p>
-            </div></a>
-            <br>
-            <hr style="border: 0.5px solid #dddddd;">
-            <br>
-
             <!--<div class="video-card">
                 <div style="position: relative; width: 100%">
                     <p class="text-white sub-text px-1" style="background-color: black; display: inline-block; font-size: 12px; position: absolute; bottom: 2px; right:2px">4:00</p>

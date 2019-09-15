@@ -24,10 +24,10 @@
             <i class="fas fa-bars main-icon"></i>
         </div>
         <div class="logo mr-auto logo-light pl-2">
-        <img src="./static/img/yt_logo_rgb_light.png" alt="" height="20px;" class="">
+        <img src="./static/img/Yoogle.png" alt="" height="20px;" class="">
         </div>
         <div class="logo mr-auto logo-dark pl-2" style="display: none">
-            <img src="./static/img/yt_logo_rgb_dark.png" alt="" height="20px;" class="logo-dark">
+            <img src="./static/img/Yoogle.png" alt="" height="50px;" class="logo-dark">
         </div>
         <form class="form-inline mr-auto">
             <div class="input-group">
@@ -104,6 +104,7 @@
                 <i class="fas fa-id-card"></i> Subscription
             </div>
             <hr>
+            <!--
             <p class="text-small text-muted pl-3">LIBRARY</p>
             <div class="option p-2 d-block mt-2">
                 <i class="fas fa-history"></i> History
@@ -148,24 +149,24 @@
 Terms Privacy Policy and SafetyTest new features</p>
            <br>
            <p class="px-3 pb-2">&copy; 2019 Yoogle</p>
+         -->
 
         </div>
 
         <div class="width-container pb-5" style="padding-top: 3%;">
+
             <!--            Recommended starts here            -->
-            <h1 class="py-3 yt-title">Mac vs Windows for Software Engineers</h1>
+            <h1 class="py-3 yt-title">{{title}}</h1>
             <a href="play.html">
                 <div class="video-card-play">
                 <div style="position: relative; width: 100%">
                     <!--<p class="text-white sub-text px-1" style="background-color: black; display: inline-block; font-size: 12px; position: relative; bottom: 2px; right:-200%;">4:00</p>
                     <img src="./static/img/hqdefault(1).jpg" alt="" style="width: 25%;margin-left: -1%;">-->
                     <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src={{link}} allowfullscreen></iframe>
+                            <iframe frameborder="0" class="embed-responsive-item" src={{link}} allowfullscreen></iframe>
                     </div>
                 </div>
-                <p class="text-justify py-2 sub-heading">Mac vs Windows for Software Engineers </p>
-                <p class="text-muted text-small">Flora Sutton</p>
-                <p class="text-muted text-small">1.1B views * 1 year ago</p>
+                <p class="text-justify py-2 sub-heading">{{title}}</p>
             </div></a>
             <div class="video-card-play hidden">
                 <div style="position: relative; width: 100%">
@@ -177,13 +178,10 @@ Terms Privacy Policy and SafetyTest new features</p>
                 <p class="text-muted text-small">1.1B views * 1 year ago</p>
             </div>
             <br><br>
-            <p class="text-justify py-2 sub-heading">Tags :</p>
-            <button type="button" class="btn btn-outline-light">Light</button>
-            <button type="button" class="btn btn-outline-light">Light</button>
-            <button type="button" class="btn btn-outline-light">Light</button>
-            <button type="button" class="btn btn-outline-light">Light</button>
-            <button type="button" class="btn btn-outline-light">Light</button>
-            <button type="button" class="btn btn-outline-light">Light</button>
+            <p class="text-justify py-2 sub-heading">Tags:</p>
+            {% for x in tags %}
+            <button type="button" class="btn btn-outline-light">{{x}}</button>
+            {% endfor %}
         </div>
         <br><br>
         <div class="width-container pb-5">
