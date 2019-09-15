@@ -74,7 +74,7 @@ class InvertedIndex:
                         'video': key,
                         'frame_no': i + 1,
                         'thumbnail_link': value[key]['youtube_thumbnail_link'],
-                        'youtube_link': value[key]['youtube_link'],
+                        'youtube_link': value[key]['youtube_link'][0:len(value[key]['youtube_link']) - 1],
                         'title': value[key]['title']
                         })
         self.save(self.inverted_index, 'inverted_index.json')
