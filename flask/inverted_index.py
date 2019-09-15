@@ -10,7 +10,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 
-firebase_credentials = credentials.Certificate('serviceAccountKey.json')
+firebase_credentials = credentials.Certificate('../serviceAccountKey.json')
 
 firebase = firebase_admin.initialize_app(firebase_credentials, {
 'databaseURL': 'https://htn2019-e1074.firebaseio.com'
@@ -19,6 +19,10 @@ firebase = firebase_admin.initialize_app(firebase_credentials, {
 stopwords = set(stopwords.words('english'))
 
 inverted_index = {}
+
+if os.path.exists('inverted_index.pkl'):
+    read()
+    
 bi_word_inverted_index = {}
 
 def remove_stopwords(tokens):
@@ -71,7 +75,8 @@ def listener(event):
                     'video': key,
                     'frame_no': i + 1
                     })
-    print(search('decay'))
+    if not os.path.exists('inverted_index.pkl'):
+        save(inverted_index, 'inverted_index.pkl')
 
 def search(word):
     if word in inverted_index:
@@ -88,6 +93,14 @@ def search(word):
                 'frame_no': doc['frame_no']
                 }]    
         return result
-    return None    
+    return None
+    
+def save(inverted_index,filename):
+    with open(filename + '.pkl','wb') as index:
+        pickle.dump(inverted_index,index,pickle.HIGHEST_PROTOCOL)
+        
+def read():
+    with open("inverted_index.pkl",'rb') as file:
+        inverted_index = pickle.load(file)    
                 
 db.reference('/').listen(listener)

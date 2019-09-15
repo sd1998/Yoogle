@@ -3,9 +3,10 @@ import inverted_index
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
+@app.route("/search", methods=['POST'])
 def index():
-    
+    form = request.form.get('search')
+    print(form)
     return render_template("index.html") 
 
 @app.route('/get-user-data', methods=['POST'])
