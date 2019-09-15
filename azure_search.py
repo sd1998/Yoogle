@@ -32,11 +32,11 @@ def insert(index_name, data):
     payload = {
     'value': data
     }
-    if data[0]['title'] == '5 Minutes on Tech: Everything You Need to Know about USB-C and Thunderbolt 3':
-        print(payload)
+    #if data[0]['title'] == '5 Minutes on Tech: Everything You Need to Know about USB-C and Thunderbolt 3':
+        #print(payload)
     response = requests.post(url, headers=headers, json=payload)
     index_content = response.json()
-    print(index_content)
+    #print(index_content)
     
 def delete_index(index_name):
     url = azure_search_endpoint + 'indexes/' + index_name + api_version

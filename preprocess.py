@@ -19,11 +19,11 @@ def preprocess(video):
     video_file_path = youtube_metadata['id'] + '.mkv'
     YoutubeMetadata.download_youtube_video(video, video_file_path)
     if os.path.exists(video_file_path):
-        if not os.path.exists(youtube_metadata['id']):
-            if youtube_metadata['id'][0] == '-':
-                dir_name = youtube_metadata['id'][1:]
-            else:    
-                dir_name = youtube_metadata['id']
+        if youtube_metadata['id'][0] == '-':
+            dir_name = youtube_metadata['id'][1:]
+        else:    
+            dir_name = youtube_metadata['id']
+        if not os.path.exists(dir_name):
             os.mkdir(dir_name)
         os.system("ffmpeg -i " + video_file_path + " -vf fps=1/3 " + dir_name + "/out%d.png")
         video_data = {

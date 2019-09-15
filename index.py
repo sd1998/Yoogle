@@ -18,6 +18,7 @@ index_schema = {
 {'name': 'title', 'type': 'Edm.String', 'retrievable': 'true'},
 {'name': 'duration', 'type': 'Edm.Int64', 'retrievable': 'true'},
 {'name': 'frame_features', 'type': 'Collection(Edm.ComplexType)', 'fields': [
+{'name': 'frame_no', 'type': 'Edm.Int64'},
 {'name': 'adult', 'type': 'Edm.ComplexType', 'fields': [
 {'name': 'adultScore', 'type': 'Edm.Double', 'retrievable': 'true', 'filterable': 'true'},
 {'name': 'isAdultContent', 'type': 'Edm.Boolean', 'facetable': 'true', 'filterable': 'true'},
@@ -48,13 +49,13 @@ create_index(index_schema)
 def listener(event):
     value = event.data
     for key in list(value.keys()):
-        print(value[key]['title'])
         for i in range(0, len(value[key]['frame_features'])):
             value[key]['frame_features'][i].pop('color', None)
             value[key]['frame_features'][i].pop('faces', None)
             value[key]['frame_features'][i].pop('image_type', None)
             value[key]['frame_features'][i].pop('metadata', None)
             value[key]['frame_features'][i].pop('request_id', None)
+            value[key]['frame_features'][i]['frame_no'] = i
         insert(index_schema['name'], [value[key]])
 
 db.reference('/').listen(listener)
