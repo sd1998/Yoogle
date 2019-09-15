@@ -195,6 +195,10 @@ class InvertedIndex:
 
     def read_index_file(self, index_file_name):
         with open(index_file_name,'r') as file:
+<<<<<<< HEAD
             return json.load(file)
 
 #index = InvertedIndex()
+=======
+            return json.load(file)
+>>>>>>> 34b1702558b6f678821d74ece4d9cf8620272b25
