@@ -3,10 +3,9 @@ import inverted_index
 
 app = Flask(__name__)
 
-@app.route("/search", methods=['POST'])
+@app.route("/", methods=['GET'])
 def index():
-    form = request.form.get('search')
-    print(form)
+    
     return render_template("index.html") 
 
 @app.route('/get-user-data', methods=['POST'])
@@ -22,4 +21,4 @@ def show_stuff():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=6666)
