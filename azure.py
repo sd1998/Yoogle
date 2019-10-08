@@ -7,7 +7,7 @@ import base64
 def extract_frame_features(frame_file_name):
     headers = {
         'Content-Type': 'application/octet-stream',
-        'Ocp-Apim-Subscription-Key': '4f146499dabf4a65aafe6e056ccd4321',
+        'Ocp-Apim-Subscription-Key': '<sub_key>',
     }
 
     params = urllib.parse.urlencode({
